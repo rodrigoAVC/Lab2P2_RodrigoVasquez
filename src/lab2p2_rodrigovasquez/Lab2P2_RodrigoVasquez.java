@@ -9,6 +9,7 @@ public class Lab2P2_RodrigoVasquez {
         ArrayList<Usuario> listaUsuarios = new ArrayList();
         listaUsuarios.add(new Usuario("Peter Griffin", 42, "admin", "admin1234"));
         boolean estadoCuenta = false;
+        boolean admin = false;
         Scanner scMain = new Scanner(System.in);
         int opcion = 0;
         do {
@@ -37,6 +38,11 @@ public class Lab2P2_RodrigoVasquez {
                     }
                     break;
                 case 3:
+                    boolean yoquese[] = logIn(estadoCuenta, listaUsuarios, admin);
+                    estadoCuenta = yoquese[1];
+                    admin = yoquese[0];
+                    System.out.println(admin);
+                    System.out.println(estadoCuenta);
                     break;
                 case 4:
                 default:
@@ -54,7 +60,8 @@ public class Lab2P2_RodrigoVasquez {
 
     }
 
-    public static void logIn(boolean estadoCuenta, ArrayList<Usuario> lista) {
+    public static boolean[] logIn(boolean estadoCuenta, ArrayList<Usuario> lista, boolean admin) {
+        boolean[] yoquese = new boolean[2];
         Scanner scLogs = new Scanner(System.in);
         int opcion = 0;
         do {
@@ -74,33 +81,53 @@ public class Lab2P2_RodrigoVasquez {
                     } else {
                         System.out.print("Ingrese su nombre de usuario: ");
                         username = scLogs.nextLine();
+                        username = scLogs.nextLine();
                         scLogs = new Scanner(System.in);
-                        boolean correctUser = false;
-                        for (Usuario usuario : lista) {
-                            String name = usuario.getUsername();
-                            if (username.equals(name)) {
-                                correctUser = true;
-                            }
-                        }
-                        if (correctUser == true) {
+                        if (username.equals("admin")) {
                             System.out.print("Ingrese su contraseña: ");
                             password = scLogs.nextLine();
                             scLogs = new Scanner(System.in);
-                            boolean correctPassword = false;
-                            for (Usuario usuario : lista) {
-                                String pass = usuario.getPassword();
-                                if (password.equals(pass)) {
-                                    correctPassword = true;
-                                }
-                            }
-                            if (correctPassword == true) {
-                                System.out.println("Se ha iniciado sesion exitosamente");
-                                estadoCuenta = true; 
+                            if (password.equals("admin1234")) {
+                                System.out.println("Administrados ha iniciado sesion");
+                                admin = true;
+                                estadoCuenta = true;
+                                yoquese[0] = admin;
+                                yoquese[1] = estadoCuenta;
+                                return yoquese;
                             } else {
-                                System.out.println("Contraseña Invalida");
+                                System.out.println("Contraseña incorrecta");
                             }
                         } else {
-                            System.out.println("Nombre de usuario no encontrado");
+                            boolean correctUser = false;
+                            for (Usuario usuario : lista) {
+                                String name = usuario.getUsername();
+                                if (username.equals(name)) {
+                                    correctUser = true;
+                                }
+                            }
+                            if (correctUser == true) {
+                                System.out.print("Ingrese su contraseña: ");
+                                password = scLogs.nextLine();
+                                scLogs = new Scanner(System.in);
+                                boolean correctPassword = false;
+                                for (Usuario usuario : lista) {
+                                    String pass = usuario.getPassword();
+                                    if (password.equals(pass)) {
+                                        correctPassword = true;
+                                    }
+                                }
+                                if (correctPassword == true) {
+                                    System.out.println("Se ha iniciado sesion exitosamente");
+                                    estadoCuenta = true;
+                                    yoquese[0] = admin;
+                                    yoquese[1] = estadoCuenta;
+                                    return yoquese;
+                                } else {
+                                    System.out.println("Contraseña Invalida");
+                                }
+                            } else {
+                                System.out.println("Nombre de usuario no encontrado");
+                            }
                         }
                     }
                     break;
@@ -110,6 +137,7 @@ public class Lab2P2_RodrigoVasquez {
                     } else {
                         System.out.print("Ingrese su nombre: ");
                         String name = scLogs.nextLine();
+                        name = scLogs.nextLine();
                         scLogs = new Scanner(System.in);
                         System.out.print("Ingrese su edad: ");
                         int edad = scLogs.nextInt();
@@ -123,24 +151,35 @@ public class Lab2P2_RodrigoVasquez {
                         lista.add(new Usuario(name, edad, username, password));
                         System.out.println("Usuario agregado exitosamente");
                         estadoCuenta = true;
-                        return;
+                        yoquese[0] = admin;
+                        yoquese[1] = estadoCuenta;
+                        return yoquese;
                     }
                     break;
                 case 3:
-                    System.out.print("¿Seguro que quiere cerrar sesion? ");
-                    char caracter = scLogs.next().charAt(0);
-                    if (caracter == 'y' || caracter == 'Y') {
-                        System.out.println("La sesion fue cerrada");
-                        estadoCuenta = false;
-                        scLogs = new Scanner(System.in);
+                    if (estadoCuenta == true) {
+                        System.out.print("¿Seguro que quiere cerrar sesion? ");
+                        char caracter = scLogs.next().charAt(0);
+                        if (caracter == 'y' || caracter == 'Y' || caracter == 's' || caracter == 'S') {
+                            System.out.println("La sesion fue cerrada");
+                            scLogs = new Scanner(System.in);
+                            estadoCuenta = false;
+                            admin = false;
+                            yoquese[0] = admin;
+                            yoquese[1] = estadoCuenta;
+                            return yoquese;
+                        }
                     } else {
-                        return;
+                        System.out.println("No puede cerrar sesion si no hay una iniciada");
                     }
                     break;
                 default:
                     System.out.println("Accion Invalida");
             }
         } while (opcion > 0 && opcion < 4);
+        yoquese[0] = admin;
+        yoquese[1] = estadoCuenta;
+        return yoquese;
     }
 
     public static void logOut() {
