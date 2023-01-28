@@ -152,22 +152,70 @@ public class Lab2P2_RodrigoVasquez {
                                            3. Solares
                                          ----------------
                                            """);
-                        System.out.print("¿Que desea crear? ");
+                        System.out.print("¿Que desea listar? ");
                         opcionLista = scReg.nextInt();
                         switch (opcionLista) {
                             case 1:
+                                int i = 0;
                                 for (Object object : lista) {
-                                    if (object instanceof Casa) {
+                                    if (object instanceof Casa && ((Casa) lista.get(i)).equals("Lista")) {
                                         System.out.println(object);
                                     }
+                                    i++;
                                 }
+                                i = 0;
+                                for (Object object : lista) {
+                                    if (object instanceof Casa && ((Casa) lista.get(i)).equals("En Construccion")) {
+                                        System.out.println(object);
+                                    }
+                                    i++;
+                                }
+                                i = 0;
+                                for (Object object : lista) {
+                                    if (object instanceof Casa && ((Casa) lista.get(i)).equals("Construccion en Espera")) {
+                                        System.out.println(object);
+                                    }
+                                    i++;
+                                }
+                                i = 0;
+                                for (Object object : lista) {
+                                    if (object instanceof Casa && ((Casa) lista.get(i)).equals("En Espera de Demolicion ")) {
+                                        System.out.println(object);
+                                    }
+                                    i++;
+                                }
+                                i = 0;
                                 break;
                             case 2:
+                                i = 0;
                                 for (Object object : lista) {
-                                    if (object instanceof Edificio) {
+                                    if (object instanceof Edificio && ((Edificio) lista.get(i)).equals("Lista")) {
                                         System.out.println(object);
                                     }
+                                    i++;
                                 }
+                                i = 0;
+                                for (Object object : lista) {
+                                    if (object instanceof Edificio && ((Edificio) lista.get(i)).equals("En Construccion")) {
+                                        System.out.println(object);
+                                    }
+                                    i++;
+                                }
+                                i = 0;
+                                for (Object object : lista) {
+                                    if (object instanceof Edificio && ((Edificio) lista.get(i)).equals("Construccion en Espera")) {
+                                        System.out.println(object);
+                                    }
+                                    i++;
+                                }
+                                i = 0;
+                                for (Object object : lista) {
+                                    if (object instanceof Edificio && ((Edificio) lista.get(i)).equals("En Espera de Demolicion ")) {
+                                        System.out.println(object);
+                                    }
+                                    i++;
+                                }
+                                i = 0;
                                 break;
                             case 3:
                                 for (Object object : lista) {
@@ -183,9 +231,139 @@ public class Lab2P2_RodrigoVasquez {
                     }
                     break;
                 case 3:
-
+                    System.out.println("""
+                                       ----------------
+                                        1. Casas
+                                        2. Edificios
+                                        3. Solares
+                                       ----------------
+                                       """);
+                    System.out.print("¿Que desea modificar? ");
+                    int opcionModi = scReg.nextInt(); 
+                    switch (opcionModi) {
+                        case 1: 
+                            for (Object object : lista) {
+                                if (object instanceof Casa) {
+                                    System.out.println(object);
+                                }
+                            }
+                            System.out.print("Ingrese el numero de casa que desea modificar: ");
+                            int numCasa = scReg.nextInt();
+                            if (lista.get(numCasa) instanceof Casa) {
+                                System.out.print("Ingrese el numero de casa: ");
+                                int numeroCasa = scReg.nextInt();
+                                System.out.print("Ingrese el numero de bloque: ");
+                                int numBloque = scReg.nextInt();
+                                System.out.print("Ingrese el color de la casa: ");
+                                Color color = JColorChooser.showDialog(null, "Eliga el color", Color.black);
+                                System.out.print("Ingrese el ancho de la casa: ");
+                                int ancho = scReg.nextInt();
+                                System.out.print("Ingrese el largo de la casa: ");
+                                int largo = scReg.nextInt();
+                                System.out.print("Ingrese el numero de baños: ");
+                                int bath = scReg.nextInt();
+                                System.out.print("Ingrese el numero de cuarto: ");
+                                int cuartos = scReg.nextInt();
+                                ((Casa)lista.get(numCasa)).setNumCasa(numeroCasa);
+                                ((Casa)lista.get(numCasa)).setNumBloque(numBloque);
+                                ((Casa)lista.get(numCasa)).setColor(color);
+                                ((Casa)lista.get(numCasa)).setAncho(ancho);
+                                ((Casa)lista.get(numCasa)).setLargo(largo);
+                                ((Casa)lista.get(numCasa)).setBaths(bath);
+                                ((Casa)lista.get(numCasa)).setCuartos(cuartos);
+                            } else {
+                                System.out.println("Numero Invalido");
+                            }
+                            break;
+                        case 2:
+                            for (Object object : lista) {
+                                if (object instanceof Edificio) {
+                                    System.out.println(object);
+                                }
+                            }
+                            System.out.print("Ingrese el numero de edificio que desea modificar: ");
+                            int numEdi = scReg.nextInt();
+                            if (lista.get(numEdi) instanceof Edificio) {
+                                System.out.print("Ingrese el numero de pisos: ");
+                                int pisos = scReg.nextInt();
+                                System.out.print("Ingrese la cantidad de locales: ");
+                                int locales = scReg.nextInt();
+                                System.out.print("Ingrese la direccion del edificio: ");
+                                String edificio = scReg.nextLine();
+                                edificio = scReg.nextLine();
+                                ((Edificio)lista.get(numEdi)).setPisos(pisos);
+                                ((Edificio)lista.get(numEdi)).setLocales(locales);
+                                ((Edificio)lista.get(numEdi)).setDireccion(edificio);
+                            }
+                            break;
+                        case 3:
+                            for (Object object : lista) {
+                                if (object instanceof Solar_Baldio) {
+                                    System.out.println(object);
+                                }
+                            }
+                            System.out.print("Ingrese el numero de edificio que desea modificar: ");
+                            int numEdi = scReg.nextInt();
+                            break;
+                    }
                     break;
                 case 4:
+                    System.out.println("""
+                                       ----------------
+                                        1. Casas
+                                        2. Edificios
+                                        3. Solares
+                                       ----------------
+                                       """);
+                    System.out.print("¿Que desea borrar? ");
+                    int opcionBorrar = scReg.nextInt(); 
+                    switch (opcionBorrar) {
+                        case 1: 
+                            for (Object object : lista) {
+                                if (object instanceof Casa) {
+                                    System.out.println(object);
+                                }
+                            }
+                            System.out.print("Ingrese el numero de casa que desea borrar: ");
+                            int numCasa = scReg.nextInt();
+                            if (lista.get(numCasa) instanceof Casa) {
+                                lista.remove(numCasa);
+                            } else {
+                                System.out.println("Numero Invalido");
+                            }
+                            break;
+                        case 2:
+                            for (Object object : lista) {
+                                if (object instanceof Edificio) {
+                                    System.out.println(object);
+                                }
+                            }
+                            System.out.print("Ingrese el numero de casa que desea borrar: ");
+                            int numEdi = scReg.nextInt();
+                            if (lista.get(numEdi) instanceof Edificio) {
+                                lista.remove(numEdi);
+                            } else {
+                                System.out.println("Numero Invalido");
+                            }
+                            break;
+                        case 3: 
+                            for (Object object : lista) {
+                                if (object instanceof Solar_Baldio) {
+                                    System.out.println(object);
+                                }
+                            }
+                            System.out.print("Ingrese el numero de casa que desea borrar: ");
+                            int numSolar = scReg.nextInt();
+                            if (lista.get(numSolar) instanceof Solar_Baldio) {
+                                lista.remove(numSolar);
+                            } else {
+                                System.out.println("Numero Invalido");
+                            }
+                            break;
+                        default:
+                            System.out.println("Numero Invalido");
+                            break;
+                    }
                     break;
                 case 5:
                     System.out.print("""
@@ -212,7 +390,7 @@ public class Lab2P2_RodrigoVasquez {
                             }
                             break;
                         case 2:
-
+                            
                     }
                     break;
                 default:
@@ -265,7 +443,10 @@ public class Lab2P2_RodrigoVasquez {
                     }
                     break;
                 case 3:
-
+                    System.out.print("Los solares baldios no tienen estados");
+                    break;
+                default:
+                    System.out.println("Accion Invalida");
                     break;
             }
         } while (opcion > 0 && opcion < 4);
@@ -393,7 +574,4 @@ public class Lab2P2_RodrigoVasquez {
         return yoquese;
     }
 
-    public static void logOut() {
-
-    }
 }
