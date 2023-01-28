@@ -24,25 +24,25 @@ public class Lab2P2_RodrigoVasquez {
             opcion = scMain.nextInt();
             switch (opcion) {
                 case 1:
-                    if (estadoCuenta = false) {
+                    if (estadoCuenta == false) {
                         System.out.println("No puede realizar esta accion sin haber iniciado sesion");
                     } else {
-
+                        registro();
                     }
                     break;
                 case 2:
-                    if (estadoCuenta = false) {
+                    if (estadoCuenta == false) {
                         System.out.println("No puede realizar esta accion sin haber iniciado sesion");
                     } else {
-
+                        if (admin == false) {
+                            System.out.println("Solo el administrador puede acceder a esto");
+                        }
                     }
                     break;
                 case 3:
                     boolean yoquese[] = logIn(estadoCuenta, listaUsuarios, admin);
                     estadoCuenta = yoquese[1];
                     admin = yoquese[0];
-                    System.out.println(admin);
-                    System.out.println(estadoCuenta);
                     break;
                 case 4:
                 default:
@@ -53,11 +53,25 @@ public class Lab2P2_RodrigoVasquez {
     }
 
     public static void registro() {
-
+        Scanner scReg = new Scanner(System.in);
+        int opcion = 0;
+        do {
+            System.out.println("-------------------------------------");
+            System.out.print("""
+                               1. Crear Casas / Edificios / Solares
+                               2. Listar Casas / Edificios / Solares
+                               3. Modificar Casas / Edificios / Solares
+                               4. Borrar Casas / Edificios / Solares
+                               5. Comprar Casas / Edificios / Solares
+                               """);
+            System.out.println("-------------------------------------");
+            System.out.print("Ingrese la accion a realizar: ");
+            opcion = scReg.nextInt();
+        } while (opcion > 0 && opcion < 6);
     }
 
     public static void manejoEstados() {
-
+        
     }
 
     public static boolean[] logIn(boolean estadoCuenta, ArrayList<Usuario> lista, boolean admin) {
@@ -88,7 +102,7 @@ public class Lab2P2_RodrigoVasquez {
                             password = scLogs.nextLine();
                             scLogs = new Scanner(System.in);
                             if (password.equals("admin1234")) {
-                                System.out.println("Administrados ha iniciado sesion");
+                                System.out.println("Administrador ha iniciado sesion");
                                 admin = true;
                                 estadoCuenta = true;
                                 yoquese[0] = admin;
