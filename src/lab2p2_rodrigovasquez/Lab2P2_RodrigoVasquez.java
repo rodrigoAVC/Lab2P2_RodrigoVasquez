@@ -404,7 +404,31 @@ public class Lab2P2_RodrigoVasquez {
                             }
                             break;
                         case 2:
-                            
+                            for (Object object : lista) {
+                                if (object instanceof Edificio) {
+                                    System.out.println(object);
+                                }
+                            }
+                            System.out.print("Ingrese el edificio que desea comprar: ");
+                            int numEdi = scReg.nextInt();
+                            if (lista.get(numEdi) instanceof Edificio) {
+                                System.out.println("Casa comprada");
+                                ((Edificio) lista.get(numEdi)).setOwner(name);
+                            }
+                            break;
+                        case 3:
+                            for (Object object : lista) {
+                                if (object instanceof Solar_Baldio) {
+                                    System.out.println(object);
+                                }
+                            }
+                            System.out.print("Ingrese el solar baldio que desea comprar: ");
+                            int numSolar = scReg.nextInt();
+                            if (lista.get(numSolar) instanceof Solar_Baldio) {
+                                System.out.println("Casa comprada");
+                                ((Solar_Baldio) lista.get(numSolar)).setOwner(name);
+                            }
+                            break;
                     }
                     break;
                 default:
