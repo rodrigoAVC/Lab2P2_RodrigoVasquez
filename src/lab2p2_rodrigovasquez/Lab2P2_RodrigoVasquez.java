@@ -1,12 +1,18 @@
 package lab2p2_rodrigovasquez;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JColorChooser;
 
 public class Lab2P2_RodrigoVasquez {
 
+    static String name;
+    static boolean yoquese[];
+
     public static void main(String[] args) {
         ArrayList<Usuario> listaUsuarios = new ArrayList();
+        ArrayList lista = new ArrayList();
         listaUsuarios.add(new Usuario("Peter Griffin", 42, "admin", "admin1234"));
         boolean estadoCuenta = false;
         boolean admin = false;
@@ -27,7 +33,7 @@ public class Lab2P2_RodrigoVasquez {
                     if (estadoCuenta == false) {
                         System.out.println("No puede realizar esta accion sin haber iniciado sesion");
                     } else {
-                        registro();
+                        registro(yoquese, lista);
                     }
                     break;
                 case 2:
@@ -36,11 +42,13 @@ public class Lab2P2_RodrigoVasquez {
                     } else {
                         if (admin == false) {
                             System.out.println("Solo el administrador puede acceder a esto");
+                        } else {
+
                         }
                     }
                     break;
                 case 3:
-                    boolean yoquese[] = logIn(estadoCuenta, listaUsuarios, admin);
+                    yoquese = logIn(estadoCuenta, listaUsuarios, admin);
                     estadoCuenta = yoquese[1];
                     admin = yoquese[0];
                     break;
@@ -52,9 +60,12 @@ public class Lab2P2_RodrigoVasquez {
         } while (opcion != 4 && opcion > 0 && opcion < 4);
     }
 
-    public static void registro() {
+    public static void registro(boolean[] yoquese, ArrayList lista) {
         Scanner scReg = new Scanner(System.in);
         int opcion = 0;
+        int opcionCrear = 0;
+        int opcionLista = 0;
+        int opcionCompra = 0;
         do {
             System.out.println("-------------------------------------");
             System.out.print("""
@@ -67,11 +78,197 @@ public class Lab2P2_RodrigoVasquez {
             System.out.println("-------------------------------------");
             System.out.print("Ingrese la accion a realizar: ");
             opcion = scReg.nextInt();
+            switch (opcion) {
+                case 1:
+                    if (yoquese[0] == false) {
+                        System.out.println("Solo el administrador puede acceder a esto");
+                    } else {
+                        System.out.print("""
+                                         ----------------
+                                           1. Casas
+                                           2. Edificios
+                                           3. Solares
+                                         ----------------
+                                           """);
+                        System.out.print("¿Que desea crear? ");
+                        opcionCrear = scReg.nextInt();
+                        scReg = new Scanner(System.in);
+                        switch (opcionCrear) {
+                            case 1:
+                                System.out.print("Ingrese el numero de casa: ");
+                                int numCasa = scReg.nextInt();
+                                System.out.print("Ingrese el numero de bloque: ");
+                                int numBloque = scReg.nextInt();
+                                System.out.print("Ingrese el color de la casa: ");
+                                Color color = JColorChooser.showDialog(null, "Eliga el color", Color.black);
+                                System.out.print("Ingrese el ancho de la casa: ");
+                                int ancho = scReg.nextInt();
+                                System.out.print("Ingrese el largo de la casa: ");
+                                int largo = scReg.nextInt();
+                                System.out.print("Ingrese el numero de baños: ");
+                                int bath = scReg.nextInt();
+                                System.out.print("Ingrese el numero de cuarto: ");
+                                int cuartos = scReg.nextInt();
+                                System.out.print("Ingrese el estado de la casa: ");
+                                String estadoCasa = scReg.nextLine();
+                                estadoCasa = scReg.nextLine();
+                                lista.add(new Casa(numCasa, numBloque, color, ancho, largo, bath, cuartos, estadoCasa, "N/A"));
+                                System.out.println("Se ha agregado la casa exitosamente");
+                                break;
+                            case 2:
+                                System.out.print("Ingrese el numero de pisos: ");
+                                int pisos = scReg.nextInt();
+                                System.out.print("Ingrese la cantidad de locales: ");
+                                int locales = scReg.nextInt();
+                                System.out.print("Ingrese la direccion del edificio: ");
+                                String edificio = scReg.nextLine();
+                                edificio = scReg.nextLine();
+                                System.out.print("Ingrese el estado del edificio: ");
+                                String estadoEdi = scReg.nextLine();
+                                lista.add(new Edificio(pisos, locales, edificio, estadoEdi, ""));
+                                break;
+                            case 3:
+                                System.out.print("Ingrese el ancho: ");
+                                int anchoSolar = scReg.nextInt();
+                                System.out.print("Ingrese el largo: ");
+                                int largoSolar = scReg.nextInt();
+                                int area = anchoSolar * largoSolar;
+                                lista.add(new Solar_Baldio(anchoSolar, largoSolar, area, ""));
+                                break;
+                            default:
+                                System.out.println("Accion Invalida");
+                                break;
+                        }
+                    }
+                    break;
+                case 2:
+                    if (yoquese[0] == false) {
+                        System.out.println("Solo el administrador puede acceder a esto");
+                    } else {
+                        System.out.print("""
+                                         ----------------
+                                           1. Casas
+                                           2. Edificios
+                                           3. Solares
+                                         ----------------
+                                           """);
+                        System.out.print("¿Que desea crear? ");
+                        opcionLista = scReg.nextInt();
+                        switch (opcionLista) {
+                            case 1:
+                                for (Object object : lista) {
+                                    if (object instanceof Casa) {
+                                        System.out.println(object);
+                                    }
+                                }
+                                break;
+                            case 2:
+                                for (Object object : lista) {
+                                    if (object instanceof Edificio) {
+                                        System.out.println(object);
+                                    }
+                                }
+                                break;
+                            case 3:
+                                for (Object object : lista) {
+                                    if (object instanceof Solar_Baldio) {
+                                        System.out.println(object);
+                                    }
+                                }
+                                break;
+                            default:
+                                System.out.println("Accion Invalida");
+                                break;
+                        }
+                    }
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    System.out.print("""
+                                         ----------------
+                                           1. Casas
+                                           2. Edificios
+                                           3. Solares
+                                         ----------------
+                                           """);
+                    System.out.print("¿Que desea comprar? ");
+                    opcionCompra = scReg.nextInt();
+                    switch (opcionCompra) {
+                        case 1:
+                            for (Object object : lista) {
+                                if (object instanceof Casa) {
+                                    System.out.println(object);
+                                }
+                            }
+                            System.out.print("Ingrese la casa que desea comprar: ");
+                            int numCasa = scReg.nextInt();
+                            if (lista.get(numCasa) instanceof Casa) {
+                                System.out.println("Casa comprada");
+                                ((Casa) lista.get(numCasa)).setOwner(name);
+                            }
+                            break;
+                        case 2:
+
+                    }
+                    break;
+                default:
+                    System.out.println("Accion Invalida");
+                    break;
+            }
         } while (opcion > 0 && opcion < 6);
     }
 
-    public static void manejoEstados() {
-        
+    public static void manejoEstados(ArrayList lista) {
+        Scanner scEstado = new Scanner(System.in);
+        int opcion = 0;
+        do {
+            System.out.print("""
+                            ----------------
+                             1. Casas
+                             2. Edificios
+                             3. Solares
+                            ----------------
+                             """);
+            System.out.print("¿Que desea modificar? ");
+            opcion = scEstado.nextInt();
+            switch (opcion) {
+                case 1:
+                    for (Object object : lista) {
+                        if (object instanceof Casa) {
+                            System.out.println(object);
+                        }
+                    }
+                    System.out.print("Ingrese la casa que desea modificar: ");
+                    int numCasa = scEstado.nextInt();
+                    if (lista.get(numCasa) instanceof Casa) {
+                        System.out.print("Ingrese el nuevo estado: ");
+                        String newEstado = scEstado.nextLine();
+                        ((Casa) lista.get(numCasa)).setEstado(newEstado);
+                    }
+                    break;
+                case 2:
+                    for (Object object : lista) {
+                        if (object instanceof Edificio) {
+                            System.out.println(object);
+                        }
+                    }
+                    System.out.print("Ingrese el edificio que desea modificar: ");
+                    int numEdi = scEstado.nextInt();
+                    if (lista.get(numEdi) instanceof Edificio) {
+                        System.out.print("Ingrese el nuevo estado: ");
+                        String newEstado = scEstado.nextLine();
+                        ((Edificio) lista.get(numEdi)).setEstado(newEstado);
+                    }
+                    break;
+                case 3:
+
+                    break;
+            }
+        } while (opcion > 0 && opcion < 4);
     }
 
     public static boolean[] logIn(boolean estadoCuenta, ArrayList<Usuario> lista, boolean admin) {
@@ -150,7 +347,7 @@ public class Lab2P2_RodrigoVasquez {
                         System.out.println("No se puede realizar esta accion ya que todavia una cuenta activa");
                     } else {
                         System.out.print("Ingrese su nombre: ");
-                        String name = scLogs.nextLine();
+                        name = scLogs.nextLine();
                         name = scLogs.nextLine();
                         scLogs = new Scanner(System.in);
                         System.out.print("Ingrese su edad: ");
