@@ -294,6 +294,8 @@ public class Lab2P2_RodrigoVasquez {
                                 ((Edificio)lista.get(numEdi)).setPisos(pisos);
                                 ((Edificio)lista.get(numEdi)).setLocales(locales);
                                 ((Edificio)lista.get(numEdi)).setDireccion(edificio);
+                            } else {
+                                System.out.println("Numero Invalido");
                             }
                             break;
                         case 3:
@@ -302,8 +304,20 @@ public class Lab2P2_RodrigoVasquez {
                                     System.out.println(object);
                                 }
                             }
-                            System.out.print("Ingrese el numero de edificio que desea modificar: ");
-                            int numEdi = scReg.nextInt();
+                            System.out.print("Ingrese el solar baldio que desea modificar: ");
+                            int numSolar = scReg.nextInt();
+                            if (lista.get(numSolar) instanceof Solar_Baldio) {
+                                System.out.print("Ingrese el ancho: ");
+                                int anchoSolar = scReg.nextInt();
+                                System.out.print("Ingrese el largo: ");
+                                int largoSolar = scReg.nextInt();
+                                int area = anchoSolar * largoSolar;
+                                ((Solar_Baldio)lista.get(numSolar)).setAncho(anchoSolar);
+                                ((Solar_Baldio)lista.get(numSolar)).setLargo(largoSolar);
+                                ((Solar_Baldio)lista.get(numSolar)).setArea(area);
+                            } else {
+                                System.out.println("Numero Invalido");
+                            }
                             break;
                     }
                     break;
